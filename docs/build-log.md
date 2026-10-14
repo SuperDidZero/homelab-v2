@@ -12,7 +12,7 @@ The build day by day. Dates are 2026. Only the homelab itself is in here.
 - **11:** Torrent client installed as a system service, saving straight to the NAS.
 - **12:** Rack frame arrived. Rack built, cabled and working.
 - **15:** Smart plug with energy monitoring put in front of the UPS: the whole rack draws about 30 W. The swap caused a power blip and the NAS stayed off. Auto power-on enabled.
-- **21:** Packet capture exercise on the home network (TLS handshakes, service discovery broadcasts, ARP).
+- **21:** Packet capture exercise on the home network (TLS handshakes, service discovery broadcasts, ARP). Written up on the [Wireshark page](wireshark-investigation.md).
 - **28:** Full health check, all healthy. QoS set on the router at about 90% of the measured line speed, with priority for the gaming and streaming devices. A larger blocklist added to Pi-hole: blocked queries went from about 3% to about 35%.
 - **30:** Hypervisor dropped off the network. Network chip offload fix applied and made permanent. Main VM set to start at boot.
 

@@ -17,6 +17,7 @@ All IP addresses, hostnames, API keys and passwords in these docs are **placehol
 | [docs/web-server.md](docs/web-server.md) | A small nginx container, and what it ended up being useful for |
 | [docs/nextcloud.md](docs/nextcloud.md) | The personal cloud: Nextcloud in Docker with its data on the NAS |
 | [docs/help-desk-and-remote-support.md](docs/help-desk-and-remote-support.md) | A self-hosted ticketing system, and remote control of a Windows laptop from inside and outside the house |
+| [docs/wireshark-investigation.md](docs/wireshark-investigation.md) | A packet capture of the home network: what HTTPS still gives away, a NAS asking the router to open ports, and a device map built from traffic alone |
 | [docs/backups.md](docs/backups.md) | What gets backed up, how, how often, and how restores are actually tested |
 | [docs/dashboard-and-monitoring.md](docs/dashboard-and-monitoring.md) | Homepage dashboard + Uptime Kuma + alerting, so there's one screen that shows if anything's down |
 | [docs/mini-deck.md](docs/mini-deck.md) | Side project: an old phone, a tiny keyboard and a LoRa radio as a pocket terminal for the homelab |
