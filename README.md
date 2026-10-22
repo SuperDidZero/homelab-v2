@@ -20,7 +20,7 @@ All IP addresses, hostnames, API keys and passwords in these docs are **placehol
 | [docs/wireshark-investigation.md](docs/wireshark-investigation.md) | A packet capture of the home network: what HTTPS still gives away, a NAS asking the router to open ports, and a device map built from traffic alone |
 | [docs/backups.md](docs/backups.md) | What gets backed up, how, how often, and how restores are actually tested |
 | [docs/dashboard-and-monitoring.md](docs/dashboard-and-monitoring.md) | Homepage dashboard + Uptime Kuma + alerting, so there's one screen that shows if anything's down |
-| [docs/mini-deck.md](docs/mini-deck.md) | Side project: an old phone, a tiny keyboard and a LoRa radio as a pocket terminal for the homelab |
+| [docs/mini-deck.md](docs/mini-deck.md) | Side project: an old phone and a tiny keyboard as a pocket terminal for the homelab, plus the LoRa radio that became the rack's Meshtastic home node |
 | [docs/ai-operator.md](docs/ai-operator.md) | Planned: one small container that coordinates several cloud AI agents, with a task queue, a log and human approval before anything happens |
 | [docs/incidents.md](docs/incidents.md) | Every outage and odd failure so far, in date order: symptom, cause, fix |
 | [docs/build-log.md](docs/build-log.md) | The build day by day, from the first shelf to the current state |

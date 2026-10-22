@@ -16,7 +16,7 @@ Everything comes from F-Droid, so the phone never needs an account:
 - **Jellyfin** for the media server
 - **WiFiAnalyzer** and **Port Authority** as a small network toolkit
 - **NewTube** for video
-- **Meshtastic** for the LoRa radio (see below)
+- **Meshtastic** to talk to the LoRa home node (see below)
 - A home screen shortcut to the homelab dashboard
 
 No offline maps or offline encyclopedia on this one. Another device in the house already does that job, and this one has a different purpose.
@@ -36,11 +36,11 @@ No offline maps or offline encyclopedia on this one. Another device in the house
 
 ## The LoRa radio
 
-The Mini deck has its own radio now: a Seeed XIAO ESP32S3 with a Wio-SX1262 board, running Meshtastic. It pairs to the phone over Bluetooth, so the phone is the radio's screen and keyboard. Text messages with no mobile network and no internet.
+The Mini deck started with its own radio: a Seeed XIAO ESP32S3 with a Wio-SX1262 board, running Meshtastic. It pairs to the phone over Bluetooth, so the phone is the radio's screen and keyboard. It now lives on the homelab rack as an always-on home node (see below). Text messages with no mobile network and no internet.
 
 - **Node name:** Minideck, short name MND
 - **Region:** EU_868
-- **Role:** Client, the right one for a radio that gets carried around
+- **Role:** Client
 - **App:** Meshtastic from F-Droid, like everything else on the phone. No account needed.
 
 ### Putting it together
@@ -72,16 +72,30 @@ Things that went wrong on the way, and what they meant:
 - **The stable firmware group is labelled "Beta" on the flasher.** That is the stable line. Alpha and nightly are the ones to leave alone.
 - **After the update the light is solid green and no longer blinks.** That is normal on the new firmware.
 
-### How it travels
+### From pocket radio to home node
 
-The Mini deck is four parts that all come apart: power bank, keyboard, phone and radio. The radio has no battery of its own. It runs from the power bank over USB-C, and the power bank was tested first, because many of them switch off when the draw is this small.
+The first plan was a portable radio: power bank, keyboard, phone and radio as four parts that came apart. In practice a radio that is only switched on now and then hears almost nobody. Meshtastic nodes only announce themselves every so often, so the node list fills up over hours, not minutes.
 
-The radio lives in a small clear case that opens, with two openings: the USB-C port and the antenna.
+So the radio moved to the rack and became an always-on home node. The radio does all the listening, relaying and remembering by itself. The phone is just a window into it, and the Mini deck is back to being a phone and a keyboard. A second, truly portable radio can come later, and the home node gives it something to reach back to.
 
-### Still to do
+How it sits on the rack:
 
-- A better antenna. The small one in the kit is meant for testing. A short 868 MHz SMA antenna on a U.FL to SMA pigtail is ordered, with the pigtail's threaded end going through the case wall. One thing to check when buying: plain SMA, not RP-SMA. They look the same and do not fit each other.
-- The two openings in the case.
+- **Case:** a small clear plastic case, clipped to a front rack post. Plastic, not metal, because metal blocks the signal.
+- **Antenna:** a short 868 MHz SMA antenna on a U.FL to SMA pigtail, standing up above the top of the frame. Metal right next to an antenna weakens it, so it pokes out above the rack rather than sitting beside the post. Plain SMA, not RP-SMA: they look the same and do not fit each other.
+- **The other antenna stays.** The XIAO's small 2.4 GHz antenna is for Bluetooth and Wi-Fi. The 868 MHz antennas are the wrong band for it, so they only ever go on the radio board.
+- **Boards:** a sticky foam pad between the two boards now holds them together.
+- **Power:** USB only. It draws about as much as a phone charger on standby.
+
+### Locking it down
+
+A node that is always on can be reached by anyone in Bluetooth range, so two settings changed:
+
+- **Bluetooth pairing code:** off the default `123456` and on to a fixed code of my own (Radio configuration, Bluetooth, Pairing mode: Fixed PIN). A phone that was already paired keeps working; any new device needs the new code.
+- **No position sent:** the radio has no GPS, so any position it shares comes from the phone. The phone's location permission for the Meshtastic app is turned off, Smart position is off and GPS mode is set to Disabled. A home node should not broadcast where home is.
+
+### Later, maybe
+
+- Putting the node on home Wi-Fi instead of Bluetooth, so it can be watched like the rest of the homelab. On this board that turns Bluetooth off, and the network connection has no password, so it would stay on the home network and the VPN only, never open to the internet, with MQTT off.
 
 ## Planned
 
