@@ -29,6 +29,24 @@
 - Measured steady-state draw for the whole rack (router, switch, DNS box, hypervisor, NAS) is well under 10% of the UPS's rated capacity, healthy headroom, no load concerns.
 - Sits on the floor underneath the rack, not on a shelf (see the rack note above on shelf depth).
 
+## Power benchmark
+
+A smart plug with energy monitoring sits between the wall and the UPS, so it measures everything the UPS feeds. Reading on 22 October 2026, mid-afternoon:
+
+| Measure | Value |
+|---|---|
+| Draw right now | 34 W |
+| Energy since midnight (14.1 h) | 0.474 kWh |
+| Average over those 14.1 h | about 34 W |
+| Voltage | 232.6 V |
+| Current | 0.194 A |
+
+What was running: router, switch, DNS box, hypervisor with its usual VMs and containers, NAS, the dashboard tablet and the LoRa home node. The lab firewall VM was on for part of the day for the repair bench test.
+
+The average matters more than the live number, because it smooths out spikes. At about 34 W the rack uses roughly 0.8 kWh a day, 25 kWh a month and 300 kWh a year. Compared with the about 30 W measured in September, the extra devices since then added only a few watts.
+
+Worth re-reading this after any hardware change, as a before and after.
+
 ## What's deliberately *not* in this repo's scope
 
 A separate "daily driver" single-board computer, a DIY electronics build, and an Arduino learning track all live alongside this homelab in real life, but they're independent projects with their own goals and aren't part of this write-up.
