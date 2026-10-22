@@ -75,8 +75,28 @@ The second result was not the rule failing. A firewall rule decides about *new* 
 - Clicking into the console during boot counts as "press any key" and opens the configuration importer. Pressing Enter on an empty line leaves it.
 - A VM console can send the wrong symbols if the VM's keyboard layout does not match the real keyboard. A colon typed into a browser became a different character and turned an address into a web search. Use letters and digits for the first password, set in the console's world, for the same reason.
 
+## The repair bench
+
+The lab network now has a real port. A USB 3.0 to gigabit Ethernet adapter plugged into the back of the hypervisor is the only member of the lab bridge, so anything cabled into it lands behind the firewall: it gets an address and internet from OPNsense, and the first rule stops it reaching the home network. That makes it a quarantine network for working on other people's computers, which can arrive carrying anything.
+
+How it went in:
+
+1. **Check before touching the network.** The hypervisor carries a permanent fix for its network chip (an `ethtool` line in the network config). A change made in the web page is written to a pending file first and replaces the live one on Apply, so the first job was making sure the fix would survive. `grep post-up /etc/network/interfaces.new` said there was no pending file, and the same command on the live file showed the fix in place. Both read-only.
+2. **Find the adapter.** System, Network in the web page. It showed up as a new Network Device named `enx` followed by its MAC address, inactive, which is normal until something uses it.
+3. **Make it the lab bridge's port.** Edit the lab bridge, type the adapter's name into Bridge ports, OK. Nothing changes until Apply, and the pending changes box shows a diff of the config first. Two things to look for in it: the chip fix line unchanged, and the home bridge untouched. Only the lab bridge's `bridge-ports none` should become the adapter's name.
+4. **Apply.** The home network carried on as if nothing happened.
+
+The test, from a laptop cabled into the adapter with its Wi-Fi off and its VPN client closed (either would let it reach home another way and spoil the test):
+
+- It got a `192.168.1.x` address, with the firewall as gateway and DNS server.
+- Websites loaded.
+- The home router's address did not.
+
+Using it: start the firewall VM (it does not start at boot on purpose), plug the machine in, shut the VM down afterwards.
+
 ## Not done yet
 
 - VLANs on the lab side
 - Port forwarding from the home network into the lab
 - A second lab machine, to test rules between lab devices
+- A rule set tuned for the repair bench (for example blocking customer machines from talking to each other)
