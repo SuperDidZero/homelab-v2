@@ -118,7 +118,9 @@ The Cardputer Mesh Kit is now the radio that goes out of the house, so the home 
 
 ### Seeing the wider mesh over the internet
 
-The home node is set up to link to the Portuguese community's MQTT server through the phone's internet connection ("Proxy to client"), so the node keeps its Bluetooth. Uplink and downlink are on for the LongFast channel. This shows the rest of the mesh even when no radio is in range, and lets the community see the node exists. Nodes that arrive this way are marked as coming over MQTT, not heard by radio.
+The home node links to the global Meshtastic MQTT server through the phone's internet connection ("Proxy to client"), so the node keeps its Bluetooth. Uplink and downlink are on for the LongFast channel, and the connection tested as reachable. This shows the rest of the mesh even when no radio is in range, and lets the node appear on public maps. Nodes that arrive this way are marked as coming over MQTT, not heard by radio.
+
+Map reporting is on, so the node publishes itself to those maps once an hour. The position it shares is a deliberately blurred fixed point in central Lisbon, a few kilometres wide, never the real address, since a home node should not broadcast where home is.
 
 ### Later, maybe
 
