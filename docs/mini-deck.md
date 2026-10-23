@@ -76,7 +76,7 @@ Things that went wrong on the way, and what they meant:
 
 The first plan was a portable radio: power bank, keyboard, phone and radio as four parts that came apart. In practice a radio that is only switched on now and then hears almost nobody. Meshtastic nodes only announce themselves every so often, so the node list fills up over hours, not minutes.
 
-So the radio moved to the rack and became an always-on home node. The radio does all the listening, relaying and remembering by itself. The phone is just a window into it, and the Mini deck is back to being a phone and a keyboard. A second, truly portable radio can come later, and the home node gives it something to reach back to.
+So the radio moved to the rack and became an always-on home node. The radio does all the listening, relaying and remembering by itself. The phone is just a window into it, and the Mini deck is back to being a phone and a keyboard. A second, truly portable radio came later (see below), and the home node gives it something to reach back to.
 
 How it sits on the rack:
 
@@ -91,7 +91,34 @@ How it sits on the rack:
 A node that is always on can be reached by anyone in Bluetooth range, so two settings changed:
 
 - **Bluetooth pairing code:** off the default `123456` and on to a fixed code of my own (Radio configuration, Bluetooth, Pairing mode: Fixed PIN). A phone that was already paired keeps working; any new device needs the new code.
-- **No position sent:** the radio has no GPS, so any position it shares comes from the phone. The phone's location permission for the Meshtastic app is turned off, Smart position is off and GPS mode is set to Disabled. A home node should not broadcast where home is.
+- **No position sent:** the radio has no GPS, so any position it shares comes from the phone. The phone's location permission for the Meshtastic app is turned off, Smart position is off and GPS mode is set to Disabled. On the LongFast channel itself, Position enabled is switched off too, so nothing is shared even if a location source turns up later. A home node should not broadcast where home is.
+
+### "No nodes around me": the two-radio test
+
+After a night on the rack the node list still showed only the home node. Channel utilisation sat at 0.0% and test messages on LongFast came back "failed to deliver to mesh". It looked like broken hardware, so the usual suspects were checked first: the U.FL pigtail reseated on the radio board, region EU_868 and the LongFast preset confirmed, and a test on the windowsill with the antenna vertical. Still nothing.
+
+What settled it was a second radio. The portable one arrived the same day: an M5Stack Cardputer Mesh Kit (Cardputer-Adv plus a Cap LoRa-1262 board with an SX1262 radio and GPS), which ships with Meshtastic already installed. With both radios across the room from each other, each saw the other and messages went through in both directions.
+
+So both radios work. The home node is fine; nothing else is in range of a first-floor window in a narrow street of stone buildings. Lessons:
+
+- **A second radio is the fastest hardware test.** If two nodes can talk to each other, neither is broken.
+- **0.0% channel utilisation is not a fault.** With nobody in range, there is simply nothing to hear.
+- **"Failed to deliver to mesh" on a public channel** only means no other node repeated the message back. With no neighbours, every message fails.
+- **The map is not a test.** It only shows nodes that share their location, and many people turn that off.
+- **Height beats everything.** LoRa wants a roof or a top floor and open sky, not a street-level window.
+
+### The portable radio
+
+The Cardputer Mesh Kit is now the radio that goes out of the house, so the home node can stay on the rack. It was set up from the same phone app over Bluetooth:
+
+- Region EU_868, LongFast, role Client
+- Bluetooth pairing on a fixed code of my own
+- GPS off, and Position enabled off on the LongFast channel. This one has real GPS hardware, so it matters more here
+- Uplink and downlink left off: it stays a radio-only node, so anything on its node list was actually heard over the air
+
+### Seeing the wider mesh over the internet
+
+The home node is set up to link to the Portuguese community's MQTT server through the phone's internet connection ("Proxy to client"), so the node keeps its Bluetooth. Uplink and downlink are on for the LongFast channel. This shows the rest of the mesh even when no radio is in range, and lets the community see the node exists. Nodes that arrive this way are marked as coming over MQTT, not heard by radio.
 
 ### Later, maybe
 
