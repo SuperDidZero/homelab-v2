@@ -5,6 +5,8 @@
 - **Separation of concerns**: a device or VM that's for experimenting stays separate from one that's for something the household actually depends on. Blow up the experimental one as much as you want.
 - **Shelf depth, not rack width, is the real constraint** on an open-frame rack. Measure your gear's depth before buying shelves.
 - **A backup you haven't restored from is a guess.** Always restore to a throwaway copy, confirm it works, then delete the copy, never test a restore on the live machine.
+- **Pulling a new image is not proof you're patched.** After a security update, check the version from inside the running container (for example `php -v`). Early rebuilds can still ship the old, vulnerable version.
+- **Pin image tags on anything with a database.** `latest` moves, and on a security fix it can carry a major upgrade in with it. Pin the version you run, change it deliberately.
 - **Track your own IP/MAC inventory.** It costs nothing to keep a running list and check it before handing out a new address; it costs an afternoon of confused debugging when a new device collides with an existing one.
 - **Write down what's actually done vs. still planned.** It's tempting to describe a homelab as further along than it is, especially when writing about it publicly. Being specific about what's finished and what's still an open item makes the whole write-up more useful (and more trustworthy) than a highlight reel.
 - **If local pricing/retailer pages render via JavaScript, don't trust an automated fetch of the raw price**, verify with a real screenshot or a direct visit. This applies to a lot of regional retailer sites, not just one.

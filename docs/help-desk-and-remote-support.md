@@ -5,6 +5,7 @@ Two pieces that turn the homelab from "servers at home" into something closer to
 ## Help desk (GLPI)
 
 - GLPI runs as a Docker Compose stack (the app plus a MySQL database) on the same VM as the media server and the personal cloud, on its own port.
+- The compose file pins exact image versions for both the app and the database, not `latest`. Pulling `latest` for a security fix would have dragged in a new major version along with it. Updating means changing those two tags on purpose, after reading the release notes.
 - First job after install: sign in, change the admin password, and disable the default accounts it ships with. A fresh GLPI comes with several well-known logins, and leaving them active is the classic mistake.
 - Monitored and on the dashboard.
 - The first ticket was a real one: the web server's address conflict from [incidents.md](incidents.md), opened, solved and closed.
