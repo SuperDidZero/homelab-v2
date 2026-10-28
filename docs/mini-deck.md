@@ -138,7 +138,7 @@ The position it shares is a deliberately blurred fixed point in central Lisbon, 
 
 ### Lisbon channel
 
-Besides the default LongFast channel, the node now has the Lisbon regional channel from meshtastic.pt as a secondary channel, with uplink, downlink and position all off on it. One gotcha in the phone app: saving a new channel only adds it to the list on screen. It is only written to the radio after tapping **Send** under the channel list; leaving the screen without it throws the change away.
+Besides the default LongFast channel, the node now has the Lisbon regional channel from meshtastic.pt as a secondary channel, with uplink, downlink and position all off on it. One gotcha in the phone app: saving a new channel only adds it to the list on screen. It is only written to the radio after tapping **Send** under the channel list; leaving the screen without it throws the change away. A second gotcha, found two days later when the node still wasn't on the map: sending the channel list to add the Lisbon channel had quietly switched **uplink off on LongFast**, the one setting the map depends on. After any change to the channel list, reopen LongFast and check uplink is still on.
 
 ## The clip
 
