@@ -116,15 +116,29 @@ The Cardputer Mesh Kit is now the radio that goes out of the house, so the home 
 - GPS off, and Position enabled off on the LongFast channel. This one has real GPS hardware, so it matters more here
 - Uplink and downlink left off: it stays a radio-only node, so anything on its node list was actually heard over the air
 
+### On home Wi-Fi (since 24 October)
+
+At first the node reached the internet through the phone ("Proxy to client"), which meant it only published while the phone was nearby and connected. It now joins the home Wi-Fi itself, so it works on its own around the clock:
+
+- **Wi-Fi on, Bluetooth off.** On this board turning Wi-Fi on switches Bluetooth off, so the phone app now connects over the network instead (Connection, Network tab). The phone has to be on the home Wi-Fi to reach it.
+- **Fixed address** reserved on the router, like every other machine in the homelab.
+- **Home network only.** The node's own web page has no password, so it is never opened to the internet. It stays on the home network and the VPN. It is a good candidate for the planned separate network for smart devices.
+
 ### Seeing the wider mesh over the internet
 
-The home node links to the global Meshtastic MQTT server through the phone's internet connection ("Proxy to client"), so the node keeps its Bluetooth. Uplink and downlink are on for the LongFast channel, and the connection tested as reachable. This shows the rest of the mesh even when no radio is in range, and lets the node appear on public maps. Nodes that arrive this way are marked as coming over MQTT, not heard by radio.
+The node links to the official global Meshtastic MQTT server (`mqtt.meshtastic.org`) over its own Wi-Fi, with uplink on for the LongFast channel and downlink off. This lets it show the wider mesh even when no radio is in range, and lets it appear on public maps. Nodes that arrive this way are marked as coming over MQTT, not heard by radio.
 
-Map reporting is on, so the node publishes itself to those maps once an hour. The position it shares is a deliberately blurred fixed point in central Lisbon, a few kilometres wide, never the real address, since a home node should not broadcast where home is.
+Three things that cost a day to find:
 
-### Later, maybe
+- **The server matters.** Public maps like meshmap.net only read the official server. The node had been pointed at a regional one, so it never showed up.
+- **TLS off on the official server.** With TLS on, the connection test timed out; with it off, the broker accepted the login straight away.
+- **Map reporting alone doesn't put a node on the map.** What does is a position broadcast on the default LongFast channel with uplink on.
 
-- Putting the node on home Wi-Fi instead of Bluetooth, so it can be watched like the rest of the homelab. On this board that turns Bluetooth off, and the network connection has no password, so it would stay on the home network and the VPN only, never open to the internet, with MQTT off.
+The position it shares is a deliberately blurred fixed point in central Lisbon, a few kilometres wide, never the real address, since a home node should not broadcast where home is. Check the decimal point when typing coordinates: a longitude of -91.444 instead of -9.1444 puts the node in Missouri.
+
+### Lisbon channel
+
+Besides the default LongFast channel, the node now has the Lisbon regional channel from meshtastic.pt as a secondary channel, with uplink, downlink and position all off on it. One gotcha in the phone app: saving a new channel only adds it to the list on screen. It is only written to the radio after tapping **Send** under the channel list; leaving the screen without it throws the change away.
 
 ## The clip
 
