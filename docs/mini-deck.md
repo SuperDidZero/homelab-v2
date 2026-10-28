@@ -32,7 +32,7 @@ No offline maps or offline encyclopedia on this one. Another device in the house
 
 - **The keyboard would not show up in Bluetooth at first.** It ships in 2.4G dongle mode (green light). It only appears on the phone after switching it to Bluetooth mode (blue light).
 - **The keyboard layout is set on the phone, not on the keyboard.** Adding the matching language under the on-screen keyboard's input languages made the symbols land where the keycaps say.
-- **The @ key would not type in Termux**, which gets in the way of `ssh user@host`. The same command without it: `ssh -l user host`.
+- **The @ key would not type in Termux**, which gets in the way of `ssh user@host`. The workaround was the same command without it: `ssh -l user host`. The real cause was the phone's physical keyboard layout, set to Spanish (Latin), where @ is not on Shift + 2. Fixed in Settings > General management > Physical keyboard by picking English (US), Qwerty style, to match the keys printed on the keyboard. Watch the layout-switch shortcuts (Shift + Space, Ctrl + Space, Left Alt + Shift): pressing one by accident flips it back.
 
 ## The LoRa radio
 
