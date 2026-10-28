@@ -63,4 +63,5 @@ The Pi-hole half of that backup (the Teleporter export) had already been proven 
 
 ## Honest open items
 
+- The photo library ([Immich](immich.md)) stores its photos on the NAS and dumps its database there nightly. Until the second copy below exists, the phone keeps its own originals as the other copy.
 - RAID 1 is not a backup, and the NAS is still a single location. A full second copy on a separate drive, including the machine backups and the media, is planned and not done.

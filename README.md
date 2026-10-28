@@ -16,6 +16,7 @@ All IP addresses, hostnames, API keys and passwords in these docs are **placehol
 | [docs/firewall-lab.md](docs/firewall-lab.md) | An OPNsense firewall VM with its own lab network, and a first rule that keeps the lab out of the home network |
 | [docs/web-server.md](docs/web-server.md) | A small nginx container, and what it ended up being useful for |
 | [docs/nextcloud.md](docs/nextcloud.md) | The personal cloud: Nextcloud in Docker with its data on the NAS |
+| [docs/immich.md](docs/immich.md) | The photo library: Immich in Docker, photos on the NAS, database kept off the network share, phone backing up over Wi-Fi |
 | [docs/help-desk-and-remote-support.md](docs/help-desk-and-remote-support.md) | A self-hosted ticketing system, and remote control of a Windows laptop from inside and outside the house |
 | [docs/wireshark-investigation.md](docs/wireshark-investigation.md) | A packet capture of the home network: what HTTPS still gives away, a NAS asking the router to open ports, and a device map built from traffic alone |
 | [docs/backups.md](docs/backups.md) | What gets backed up, how, how often, and how restores are actually tested |
@@ -36,7 +37,7 @@ flowchart LR
   SW --> HV[Hypervisor host<br/>Proxmox VE]
   SW --> NAS[NAS<br/>RAID 1]
   SW --> DNS1[Pi-hole #1<br/>+ Unbound]
-  HV --> VM1[VM: media + cloud + help desk<br/>Jellyfin, qBittorrent, Nextcloud, GLPI]
+  HV --> VM1[VM: media + cloud + help desk<br/>Jellyfin, qBittorrent, Nextcloud, GLPI, Immich]
   HV --> CT1[Container: web server]
   HV --> CT2[Container: Pi-hole #2<br/>secondary DNS]
   HV -. backups .-> NAS
