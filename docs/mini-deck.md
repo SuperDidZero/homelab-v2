@@ -84,7 +84,7 @@ How it sits on the rack:
 - **Antenna:** a short 868 MHz SMA antenna on a U.FL to SMA pigtail, standing up above the top of the frame. Metal right next to an antenna weakens it, so it pokes out above the rack rather than sitting beside the post. Plain SMA, not RP-SMA: they look the same and do not fit each other.
 - **The other antenna stays.** The XIAO's small 2.4 GHz antenna is for Bluetooth and Wi-Fi. The 868 MHz antennas are the wrong band for it, so they only ever go on the radio board.
 - **Boards:** a sticky foam pad between the two boards now holds them together.
-- **Power:** USB only. It draws about as much as a phone charger on standby.
+- **Power:** USB only. It draws about as much as a phone charger on standby. A dual USB charger on the rack powers the node and the dashboard tablet together.
 
 ### Locking it down
 
@@ -126,6 +126,12 @@ Map reporting is on, so the node publishes itself to those maps once an hour. Th
 
 - Putting the node on home Wi-Fi instead of Bluetooth, so it can be watched like the rest of the homelab. On this board that turns Bluetooth off, and the network connection has no password, so it would stay on the home network and the VPN only, never open to the internet, with MQTT off.
 
-## Planned
+## The clip
 
-- **A custom clip** that joins the phone and the keyboard into one unit. It has to be hinged, come apart quickly, leave both USB-C ports free, and stay clear of the keyboard's top buttons, battery cover and dongle slot. Nothing ready-made fits, so it will be made by hand or printed. Not designed yet.
+The phone and the keyboard are now joined into one unit that folds like a small laptop. No custom part was needed in the end; it is built from off-the-shelf pieces:
+
+- **Two universal phone clamps:** the top one holds the phone, the bottom one holds the keyboard.
+- **A GoPro-style hinge** (the finger pieces with a thumbscrew) joins the two clamps, so the screen tilts and locks at any angle.
+- **The catch:** the threads always tightened with the hinge facing sideways, so the phone folded the wrong way. A rubber band wrapped as a spacer on the bottom clamp's screw fixed it: the hinge now locks facing front and back and the phone folds up like a laptop screen, with plenty of clearance over the keys. If it ever creeps sideways again, a rubber 1/4" (6 mm) washer is the sturdier version of the same fix.
+
+Both devices still come out of their clamps in seconds, and both USB-C ports stay free for charging.
