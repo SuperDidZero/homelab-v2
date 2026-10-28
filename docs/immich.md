@@ -40,7 +40,7 @@ Before installing, the VM's memory was raised to give the machine learning conta
 
 Like every other service here, it is not counted as done until it is watched and visible:
 
-- **Uptime monitor:** checks Immich's own health endpoint (`/api/server/ping`) rather than the front page, so a green light means the server itself is answering. Added to the public status page and wired to the same alerting as the rest.
+- **Uptime monitor:** checks Immich's own health endpoint (`/api/server/ping`) rather than the front page, so a green light means the server itself is answering. Added to the home status page and wired to the same alerting as the rest.
 - **Dashboard tile:** in the Media group next to the media server, with a live status dot and Homepage's built-in Immich widget showing users, photos, videos and storage used. The widget uses its own API key, created with only the statistics permission, so the dashboard can read the counts but could not see or delete a single photo if the key leaked.
 - The tile was slotted into the existing Media group with `sed`, after that group's last line, instead of appended to the end of the file, which would have put it under whichever group happens to be last.
 
