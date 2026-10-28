@@ -59,9 +59,9 @@ Written down on purpose, so the repo doesn't read as more finished than it is:
 
 ## Related
 
-- [command-console](https://github.com/superdidotwitch-jpg/command-console): a sci-fi dashboard UI built as a front end for a personal daily brief.
-- [powershell-toolkit](https://github.com/superdidotwitch-jpg/powershell-toolkit): the small Windows health, hardening-check and cleanup scripts used on the laptop mentioned in the remote support doc.
-- [esp32-mp3-player](https://github.com/superdidotwitch-jpg/esp32-mp3-player): the DIY electronics build that lives next to this homelab.
+- [command-console](https://github.com/SuperDidZero/command-console): a sci-fi dashboard UI built as a front end for a personal daily brief.
+- [powershell-toolkit](https://github.com/SuperDidZero/powershell-toolkit): the small Windows health, hardening-check and cleanup scripts used on the laptop mentioned in the remote support doc.
+- [esp32-mp3-player](https://github.com/SuperDidZero/esp32-mp3-player): the DIY electronics build that lives next to this homelab.
 
 ## License
 
