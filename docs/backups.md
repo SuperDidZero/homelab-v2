@@ -2,7 +2,7 @@
 
 ## The model
 
-Everything backs up to the NAS, once. A USB drive plugged into the NAS covers the NAS's own settings and the smallest, most important backups. Since October 2026 the NAS also sends a nightly copy of everything to a small rented storage box in a data centre in Germany, so a fire or theft at home no longer takes the backups with it. A full second local copy on a bigger separate drive is still planned.
+Everything backs up to the NAS, once. A USB drive plugged into the NAS covers the NAS's own settings and the smallest, most important backups. Since October 2026 the NAS also sends a nightly copy of everything to a small rented storage box in a data centre in Germany, so a fire or theft at home no longer takes the backups with it. That copy includes the weekly machine backups too, so the earlier plan for a bigger drive kept at a friend's house was dropped.
 
 ## What gets backed up
 
@@ -91,5 +91,5 @@ The Pi-hole half of that backup (the Teleporter export) had already been proven 
 ## Honest open items
 
 - The photo library ([Immich](immich.md)) stores its photos on the NAS and dumps its database there nightly. Until the second copy below exists, the phone keeps its own originals as the other copy.
-- RAID 1 is not a backup. The off-site copy now covers losing the NAS or the room. A full second local copy on a separate drive is still planned.
+- RAID 1 is not a backup. The off-site copy now covers losing the NAS or the room, including the machine backups and the media.
 - The off-site copy has not had its restore test yet, and failure alerts for the nightly job are still to be set up. Both come after the first full upload finishes.
