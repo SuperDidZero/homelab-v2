@@ -65,6 +65,8 @@ Added 29 October 2026. Everything above lived in one room; this is the copy that
 
 **Watching it:** a TCP port check on the box's port 23 in the uptime monitor (every 5 minutes, alerts to Telegram), and a dashboard tile that reads the box's status, space used, backup data and snapshot size from the provider's API with a **read-only** token limited to that one project.
 
+**Knowing when a nightly run fails.** The NAS's own software has no email or push alerts, and its backup app has no failure notification setting, so a failed run would go unnoticed. The workaround is "no news is bad news": the uptime monitor has a **Push** monitor that expects a check-in at least every 26 hours. A small script on the DNS box runs at 09:00, asks the provider's API how much backup data is on the box, and compares it with the day before. If the number changed, the nightly run wrote something, so the script checks in. If the backup failed, got stuck or the NAS was off, the number stays the same, nobody checks in, and the monitor alerts on Telegram. It compares "changed" rather than "grew" because once the version limit is reached, old versions are pruned and the total can shrink on a good night.
+
 ## Restore testing
 
 The rule used here: **never test a restore on the live machine**, especially anything the rest of the house depends on (DNS being the obvious one). Instead:
@@ -92,4 +94,4 @@ The Pi-hole half of that backup (the Teleporter export) had already been proven 
 
 - The photo library ([Immich](immich.md)) stores its photos on the NAS and dumps its database there nightly. Until the second copy below exists, the phone keeps its own originals as the other copy.
 - RAID 1 is not a backup. The off-site copy now covers losing the NAS or the room, including the machine backups and the media.
-- The off-site copy has not had its restore test yet, and failure alerts for the nightly job are still to be set up. Both come after the first full upload finishes.
+- The off-site copy has not had its restore test yet. It comes after the first full upload finishes.
