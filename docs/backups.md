@@ -58,6 +58,7 @@ Added 29 October 2026. Everything above lived in one room; this is the copy that
 
 **Snags worth knowing:**
 
+- **rsync over SSH does work from this NAS to this provider.** Several forum threads from owners of the same NAS brand say they could not get rsync to connect and ended up recommending WebDAV instead. Here it connected first time with these settings: server address of the **sub-account** (not the main account), transmission encryption **on**, port **23**, the box's SSH support and external reachability switched on, server path left on the home directory.
 - **The destination picker said "No Data".** The connection worked, but a brand new box is empty and the picker can only choose an existing folder; it has no "new folder" button. Fix: log in once with `sftp -P 23` as the sub-account, `mkdir` a folder, log out, press Refresh. Other owners of the same NAS brand hit the exact same wall on forums without a posted answer.
 - **The first sftp login was dropped** after accepting the fingerprint. Not a password problem: the server only allows a short time to log in, and checking the fingerprint took longer than that. Running the same command again worked.
 - **Encryption at rest is weak on this NAS app.** The transfer is encrypted, but the app gives no option to set your own password for the stored backup, and community write-ups report it uses one fixed, publicly known password for every backup archive it creates. Acceptable here for now. Proper client-side encryption with a password only the owner holds is the next improvement.
