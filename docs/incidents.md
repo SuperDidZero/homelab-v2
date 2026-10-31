@@ -53,3 +53,22 @@ Every outage and odd failure so far, oldest first. Short on purpose: symptom, ca
 - **Symptom:** the NAS's app store would not load, so the backup app could not be installed. Everything else on the NAS worked.
 - **Cause:** name lookups from the NAS through the ad-blocking DNS were failing for the vendor's services, although the query log showed nothing blocked for that device.
 - **Fix:** set the NAS's DNS to manual with public resolvers. It stays that way.
+
+## Daily-driver hard freezes during map downloads (2026-10-31, root cause still open)
+
+- **Symptom:** the daily-driver (Raspberry Pi 5, 8 GB) froze completely, then rebooted itself, several times in one afternoon. It always happened while the offline maps app (Organic Maps, desktop Flatpak) was downloading map regions. SSH stopped answering too, so the whole system hung, not just the desktop.
+- **Ruled out, with how:**
+  - **Power:** official Raspberry Pi power supply, monitor powered from the wall, `vcgencmd get_throttled` stayed at `0x0` while it ran.
+  - **Heat:** 49 °C idle, about 60 °C under load. Throttling starts around 80 to 85 °C.
+  - **Wi-Fi:** it froze on Wi-Fi and again on a wired Gigabit connection.
+  - **SD card:** the Raspberry Pi Diagnostics card speed test passed.
+  - **The system in general:** a one-hour full-image backup afterwards (heavy disk and network work, no maps app open) ran without a single freeze, and so did a 100-package system update.
+- **What was seen:** nothing. The saved system log had no error before the restart, and kernel messages streamed live over SSH (`sudo dmesg -w` from another machine) printed nothing at the moment of the freeze. A hang that sudden, with no last message even over the network, means something low-level stopped the whole machine at once.
+- **Trigger found:** it happens when the **status filter** in the maps app's download window is used (to see which region is downloading). Without touching the filter, all the downloads finished fine.
+- **Root cause: not confirmed.** An app bug should only crash the app, not freeze the whole computer, so something below the app is failing. The suspects, in order:
+  1. **Memory running out.** Filtering a list of thousands of map regions could use RAM faster than the system can recover, and a Pi with no memory left can lock up before it logs anything.
+  2. **Graphics driver hang.** The filter redraws the whole list, and a GPU driver hang freezes the machine instantly with no message. The same day's system update brought new graphics drivers, and an earlier whole-world download on the older drivers never froze.
+  3. **A kernel or firmware bug from the same update,** only hit by whatever the filter does. Less likely, since nothing else triggers it.
+- **How to tell them apart (about 10 minutes):** over SSH from another machine, run `free -h -s 2` (memory every 2 seconds) and use the filter once. Memory draining to zero before the freeze points to 1. Memory flat and it still freezes points to 2 or 3, and the next step is a bug report to the Organic Maps project, with the system log from `journalctl -b -1` attached.
+- **Changed afterwards:** the system log is now kept on disk. Raspberry Pi OS ships a setting that keeps it in memory only, so a crash used to wipe the evidence. A drop-in at `/etc/systemd/journald.conf.d/99-persistent.conf` with `Storage=persistent` overrides it, so after the next freeze `journalctl -b -1` shows the last moments before the restart.
+- **Workaround until then:** don't use the filter in the download window.
