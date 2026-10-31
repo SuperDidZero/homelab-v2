@@ -12,6 +12,7 @@ Everything backs up to the NAS, once. A USB drive plugged into the NAS covers th
 | The hypervisor host's own settings | Small nightly job on the host, copied to the NAS | Nightly, 02:30 | Recent copies |
 | DNS box (Pi-hole export plus the app data for the dashboard, the uptime monitor and Unbound) | Cron job on the box: Pi-hole Teleporter export plus a tar of the app data, copied to the NAS | Nightly, 03:30 | Newest 14 |
 | Daily-driver single-board computer (home folder) | Copy to the NAS. An hourly check runs it only when the machine is on the home network | Daily, when at home | Newest 7 |
+| Daily-driver single-board computer (whole system, bootable) | Full image with [shrink-backup](https://github.com/UnconnectedBedna/shrink-backup) to its own admin-only NAS folder, kept out of the off-site copy. See [Full image of the daily-driver](#full-image-of-the-daily-driver) | By hand, monthly or before big changes (update mode) | Latest |
 | The personal cloud plus every backup folder above | NAS backup task to a 64 GB USB drive that stays plugged into the NAS | Nightly, 04:30 | Incremental |
 | Everything on the NAS (all shared and personal folders, about 215 GB) | NAS backup task over rsync, tunnelled through SSH, to a 1 TB Hetzner Storage Box in Germany. See [Off-site copy](#off-site-copy) | Nightly, 05:30 | 30 versions, plus 10 daily snapshots on the box |
 | Router configuration | Manual export of the router's settings file, uploaded to the personal cloud | After router changes | Latest |
@@ -67,6 +68,22 @@ Added 29 October 2026. Everything above lived in one room; this is the copy that
 
 **Knowing when a nightly run fails.** The NAS's own software has no email or push alerts, and its backup app has no failure notification setting, so a failed run would go unnoticed. The workaround is "no news is bad news": the uptime monitor has a **Push** monitor that expects a check-in at least every 26 hours. A small script on the DNS box runs at 09:00, asks the provider's API how much backup data is on the box, and compares it with the day before. If the number changed, the nightly run wrote something, so the script checks in. If the backup failed, got stuck or the NAS was off, the number stays the same, nobody checks in, and the monitor alerts on Telegram. It compares "changed" rather than "grew" because once the version limit is reached, old versions are pruned and the total can shrink on a good night.
 
+## Full image of the daily-driver
+
+The home folder backup covers files, but rebuilding the whole system (apps, settings, the offline tools) from scratch would take a day. So the daily-driver also gets a **bootable image** of its SD card, saved on the NAS.
+
+- **Tool:** [shrink-backup](https://github.com/UnconnectedBedna/shrink-backup), cloned with git rather than its one-line installer, so nothing runs as root unread. It builds the image from the running system with rsync, so the image only holds what is used, and it expands itself to fill the card on first boot after a restore. Later runs use update mode (`-U`), which only copies changes.
+- **Where:** its own NAS shared folder, admin only, no recycle bin, connected on the Pi through an on-demand CIFS mount that reuses the root-only credentials file from the home folder backup. **Kept out of the off-site copy on purpose:** a full image holds saved Wi-Fi passwords and app sign-ins.
+- **What is left out:** the offline Wikipedia file and the offline world maps, well over 150 GB between them. Both can be downloaded again, so the image holds only the system, apps and files: about 21 GB.
+
+Lessons from the first run:
+
+- **The tool's `exclude.txt` is not empty.** It ships with its own default list. Pasting a new list on top of it ran the last pasted line into the first default line, so that line excluded a path that does not exist and 59 GB of maps went into the image. Check the file with `cat -A` before a run: every line should end in a plain `$`.
+- **With `-t`, the exclude file replaces the built-in defaults,** so the system folders (`/proc`, `/sys`, `/dev`, `/tmp`, `/run`, `/mnt`, `/media` and so on) have to be in it too.
+- **The image is sized from everything on the card,** excluded data included, so it is a 205 GB file even though only 21 GB is written into it. On the NAS it is a sparse file and only uses the real 21 GB. The catch is that it can only be restored onto a card at least that size.
+- **Deleting inside the image does not give space back to the NAS.** An update run did strip the maps out, but the NAS still showed 79 GB used. Deleting the image and building it fresh with the fixed list brought it down to 21 GB.
+- **Check the network folder is really connected before writing to it** (`findmnt` should show a `cifs` line). An empty, unconnected mount point looks exactly like an empty NAS folder, and a 205 GB image written there would land on the Pi's own card.
+
 ## Restore testing
 
 The rule used here: **never test a restore on the live machine**, especially anything the rest of the house depends on (DNS being the obvious one). Instead:
@@ -95,3 +112,4 @@ The Pi-hole half of that backup (the Teleporter export) had already been proven 
 - The photo library ([Immich](immich.md)) stores its photos on the NAS and dumps its database there nightly. Until the second copy below exists, the phone keeps its own originals as the other copy.
 - RAID 1 is not a backup. The off-site copy now covers losing the NAS or the room, including the machine backups and the media.
 - The off-site copy has not had its restore test yet. It comes after the first full upload finishes.
+- The daily-driver's full image has not been restore-tested yet. A light check is opening it with the tool's `--chroot` option; a full test needs a spare card at least the image's size.
