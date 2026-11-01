@@ -54,7 +54,7 @@ The point isn't that anyone needs this exact stack. Most homelab write-ups eithe
 
 Written down on purpose, so the repo doesn't read as more finished than it is:
 
-- There is no full second copy of the NAS outside the NAS. Media and the machine backups exist in one place only.
+- The off-site copy of the NAS (added 29 October 2026, see [backups](docs/backups.md)) has not had its restore test yet. It comes after the first full upload finishes.
 - VLANs on the firewall lab and a home automation VM are planned and not started.
 - The AI operator is designed and not built. Its page describes the plan, not a working system.
 

@@ -109,7 +109,7 @@ The Pi-hole half of that backup (the Teleporter export) had already been proven 
 
 ## Honest open items
 
-- The photo library ([Immich](immich.md)) stores its photos on the NAS and dumps its database there nightly. Until the second copy below exists, the phone keeps its own originals as the other copy.
+- The photo library ([Immich](immich.md)) stores its photos on the NAS and dumps its database there nightly. The off-site copy above now holds a second copy of the photos too, and the phone still keeps its own originals.
 - RAID 1 is not a backup. The off-site copy now covers losing the NAS or the room, including the machine backups and the media.
 - The off-site copy has not had its restore test yet. It comes after the first full upload finishes.
 - The daily-driver's full image has not been restore-tested yet. A light check is opening it with the tool's `--chroot` option; a full test needs a spare card at least the image's size.
