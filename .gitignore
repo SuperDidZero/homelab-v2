@@ -1,0 +1,8 @@
+# Real secrets and local config never go to GitHub.
+.env
+.env.*
+secrets.h
+*.pem
+*.key
+*.pfx
+*.p12
