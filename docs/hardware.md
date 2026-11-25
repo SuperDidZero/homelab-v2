@@ -17,6 +17,7 @@
 - 2-bay NAS (UGREEN NASync DH2300 class: 4GB RAM, 8-core ARM, vendor NAS OS), two 3TB drives in RAID 1 (mirror), ~2.7TB usable.
 - Remote ways in are closed: SSH and Telnet are off, and UGREENlink remote access is off (since 2026-11-25).
 - UGOS Pro updated to 1.21.1.0016 on 2026-11-25 (was 1.20.0.0142).
+- Auto block is on: 6 failed logins in 5 minutes blocks that address for 999 minutes.
 - Picked specifically because its software stack supports what was needed (SMB/CIFS, a usable storage manager) without also needing a container runtime on the NAS itself, the container workloads live on the Proxmox host instead, the NAS is pure storage.
 - **Lesson:** after a power interruption, the NAS fully powered itself off and stayed off, while every other device on the network rode through the blip and came back on its own. NAS vendors often default to "stay off until a human presses the button" as a safety behavior. Turn on "auto power-on when power is restored" (usually under Control Panel → Hardware/Power) the day you set it up, not after the first outage finds it for you.
 

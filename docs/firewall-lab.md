@@ -40,6 +40,7 @@ So the VM was created with **only the lab network card**. It was installed and b
 
 - **"Block private networks" on WAN: off.** That option drops anything arriving on the outside from private address ranges. On a real internet line that is right. Here the outside *is* a private network, so it would block the network the firewall is plugged into.
 - **LAN range left at the default.** It does not overlap with the home network's range, which is what makes routing between the two work.
+- **Port forwards:** none beyond the two built-in anti-lockout rules (80 and 443). No UPnP plugin.
 
 ## The first rule
 

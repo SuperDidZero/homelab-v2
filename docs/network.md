@@ -20,6 +20,7 @@ The ISP-provided router is kept only because some ISPs don't allow it to be full
 - A mesh VPN (Tailscale or similar) is used for remote access rather than opening ports on the router. One node runs on the hypervisor host as a subnet router for the whole LAN (so your own authenticated devices can reach anything on the home network from anywhere); a second, separate node runs on just the one VM that hosts the media/cloud services, with an access policy that only exposes that single port to anyone you explicitly invite.
 - This two-tier setup means your own devices get full access, while a friend you share something with (e.g. a media server) only ever reaches that one service, never the rest of the home network.
 - Nothing on the router opens a way in from the internet: UPnP is off on the main router (an AX10, since 2026-11-25), there are no port forwards and DMZ is off. Remote access is through Tailscale only, with the subnet router on the Proxmox host.
+- The AX10's own VPN servers are disabled too: PPTP, L2TP and WireGuard were turned off, and OpenVPN was already off. The exposure check finished on 2026-11-25: nothing faces the internet, and Tailscale is the only remote route.
 
 ## QoS
 
