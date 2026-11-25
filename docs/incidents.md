@@ -72,3 +72,9 @@ Every outage and odd failure so far, oldest first. Short on purpose: symptom, ca
 - **How to tell them apart (about 10 minutes):** over SSH from another machine, run `free -h -s 2` (memory every 2 seconds) and start a map download. Memory draining to zero before the freeze points to 1. Memory flat and it still freezes points to 2 or 3, and the next step is a bug report to the Organic Maps project, with the system log from `journalctl -b -1` attached.
 - **Changed afterwards:** the system log is now kept on disk. Raspberry Pi OS ships a setting that keeps it in memory only, so a crash used to wipe the evidence. A drop-in at `/etc/systemd/journald.conf.d/99-persistent.conf` with `Storage=persistent` overrides it, so after the next freeze `journalctl -b -1` shows the last moments before the restart.
 - **Workaround until then:** none that is certain. Leaving the filter alone made freezes rarer but not zero, so big map downloads are best done with nothing else open, accepting that a restart can happen. The downloads pick up again after a restart.
+
+## Router UPnP had opened NAS ports to the internet (2026-11-25)
+
+- **Symptom:** none. It was found during an exposure check.
+- **Cause:** UPnP on the router had opened NAS ports to the internet.
+- **Fix:** closed the same day. The sign-in log showed no outside sign-ins.

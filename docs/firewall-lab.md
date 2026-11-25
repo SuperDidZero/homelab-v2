@@ -95,6 +95,8 @@ The test, from a laptop cabled into the adapter with its Wi-Fi off and its VPN c
 
 Using it: start the firewall VM (it does not start at boot on purpose), plug the machine in, shut the VM down afterwards.
 
+For tests with a test VM: start the firewall VM first, then the test VM. Shut down in reverse.
+
 ## Not done yet
 
 - VLANs on the lab side
