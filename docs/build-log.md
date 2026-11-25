@@ -51,3 +51,4 @@ The build day by day. Dates are 2026. Only the homelab itself is in here.
 ## November
 
 - **25:** Exposure check of the whole homelab. Router UPnP and VPN servers turned off. NAS updated and its remote relay turned off. Uptime monitor moved from v1 to v2, with a backup first. Dashboard moved to a read-only token. Ubuntu VM updated. OpenSSH CVE check: all Linux boxes use glibc and PAM, so they are not affected. Details in [incidents](incidents.md) and on the [network page](network.md).
+- **25 (later):** Mini deck joined Tailscale: the official app from F-Droid, a one-off auth key and no account on the device. Tested from an outside Wi-Fi network, with the media server and dashboard both loading through the tunnel. The laptop's Tailscale client was updated to the current release, so all machines are on the same version line. Details on the [Mini deck page](mini-deck.md#tailscale).

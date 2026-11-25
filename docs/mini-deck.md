@@ -18,6 +18,7 @@ Everything comes from F-Droid, so the phone never needs an account:
 - **NewTube** for video
 - **Meshtastic** to talk to the LoRa home node (see below)
 - A home screen shortcut to the homelab dashboard
+- **Tailscale**, the official Android app, to reach the homelab from outside (see [Tailscale](#tailscale))
 
 No offline maps or offline encyclopedia on this one. Another device in the house already does that job, and this one has a different purpose.
 
@@ -33,6 +34,17 @@ No offline maps or offline encyclopedia on this one. Another device in the house
 - **The keyboard would not show up in Bluetooth at first.** It ships in 2.4G dongle mode (green light). It only appears on the phone after switching it to Bluetooth mode (blue light).
 - **The keyboard layout is set on the phone, not on the keyboard.** Adding the matching language under the on-screen keyboard's input languages made the symbols land where the keycaps say.
 - **The @ key would not type in Termux**, which gets in the way of `ssh user@host`. The workaround was the same command without it: `ssh -l user host`. The real cause was the phone's physical keyboard layout, set to Spanish (Latin), where @ is not on Shift + 2. Fixed in Settings > General management > Physical keyboard by picking English (US), Qwerty style, to match the keys printed on the keyboard. Watch the layout-switch shortcuts (Shift + Space, Ctrl + Space, Left Alt + Shift): pressing one by accident flips it back.
+
+## Tailscale
+
+The Mini deck joined the homelab's Tailscale network on 25 November 2026.
+
+- **App:** the official Tailscale Android app from F-Droid, like everything else on the phone. No Play Store.
+- **Joining without an account:** with a one-off auth key from the admin console, typed on the Rii i4. The key was not reusable, not ephemeral, had a short expiry and was never saved. No account sign-in lives on the device, so it stays account-free.
+- **Node key expiry left at the default on purpose:** if the device is lost, it drops off by itself. The plan is to renew it with a new one-off key when it expires.
+- **Settings:** the machine is renamed `mini-deck` and "Use Tailscale subnets" is on, so it reaches the home services through the existing subnet router.
+- **Tested** from an outside Wi-Fi network: the media server and the dashboard both loaded through the tunnel.
+- **A client, not a service:** no monitor and no dashboard tile.
 
 ## The LoRa radio
 
